@@ -4,7 +4,7 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.17.1",
-    "libsodium-wrappers": "^0.7.6"
+    "deasync": "^0.1.17",
+    "express": "^4.17.1"
   }
 }
