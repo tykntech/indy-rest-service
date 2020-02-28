@@ -1,9 +1,8 @@
 variable region {
-    default = "europe-west"
+    default = "europe-west6"
 }
 
 variable project_name {
-    default = "indy-rest-service"
 }
 
 variable project_id {}
