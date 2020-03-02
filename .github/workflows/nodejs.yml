@@ -22,6 +22,8 @@ jobs:
     #- run: npm test
       env:
         CI: true
+        TF_LOG: DEBUG
+        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - name: Initialize Google Cloud SDK
       uses: zxyle/publish-gae-action@master
       with:
@@ -37,8 +39,6 @@ jobs:
       with:
         # The terraform version to download (if necessary) and use. Example: 0.12.13
         version: 0.12.21
-      env:
-        TF_LOG: DEBUG
     - run: terraform init -backend-config=./terraform/envs/dev/backend.tf ./terraform
     - run: terraform plan -var-file=./terraform/envs/dev/dev.tfvars -detailed-exitcode ./terraform
     - name: Publish app to Google App Engine
