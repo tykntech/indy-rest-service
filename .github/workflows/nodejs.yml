@@ -11,7 +11,7 @@ jobs:
       matrix:
         node-version: [10.x]
 
-    steps:
+    steps:      
     - uses: actions/checkout@v2
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v1
@@ -31,12 +31,18 @@ jobs:
         # An optional variables parameter can be used
         #gae_variables: ${{ secrets.GAE_VARIABLES }}
 
+    - name: Running terraform
+      uses: marocchino/setup-terraform@v1.0.1
+      with:
+        # The terraform version to download (if necessary) and use. Example: 0.12.13
+        version: 0.12.21
+    - run: terraform init -backend-config=envs/dev/backend.tf
+    - run: terraform plan -var-file=envs/dev/dev.tfvars "dev.plan.tfout"
     - name: Publish app to Google App Engine
       run: |
         # This client-secret.json is converted by GCP_SA_KEY.
         gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
         gcloud config set project ${{ secrets.PROJECT_ID }}
-        #gcloud app create --region=europe-west
         gcloud -q app deploy app.yaml --promote
 
         # Suppose you need a cron task.

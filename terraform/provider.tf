@@ -1,3 +1,4 @@
 provider "google" {
-    region = var.region
+  credentials = file(var.keyfilename)
+  region      = var.region
 }

@@ -1,0 +1,7 @@
+region = "europe-west6"
+org_id = "396435930941"
+project_id = "blissful-flames-207709"
+project_name = "test"
+subdomain = "test-api"
+environment = "test"
+keyfilename = "c:\\Users\\du7\\Downloads\\blissful-flames-207709-9d93ee1a6bd2.json"

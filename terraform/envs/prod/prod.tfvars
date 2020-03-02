@@ -1,0 +1,7 @@
+region = "europe-west6"
+org_id = "396435930941"
+project_id = "production-269911"
+project_name = "production"
+subdomain = "api"
+environment = "prod"
+keyfilename = "c:\\Users\\du7\\Downloads\\production-269911-1a2b7cc688d2.json"
