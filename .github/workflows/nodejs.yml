@@ -39,7 +39,7 @@ jobs:
     - run: terraform init -backend-config=./terraform/envs/test/backend.tf ./terraform              
       env:                
         GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
-    - run: terraform plan -var-file=./terraform/envs/test/test.tfvars -detailed-exitcode ./terraform        
+    - run: terraform plan -out=plan.tfout -var-file=./terraform/envs/test/test.tfvars -detailed-exitcode ./terraform        
       env:                
         GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - name: Publish app to Google App Engine
