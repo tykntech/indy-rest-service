@@ -38,13 +38,9 @@ jobs:
       with:
         # The terraform version to download (if necessary) and use. Example: 0.12.13
         version: 0.12.21
-    - run: terraform init -backend-config=./terraform/envs/dev/backend.tf ./terraform        
-      env:        
-        TF_LOG: DEBUG
-        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
-    - run: terraform plan -var-file=./terraform/envs/dev/dev.tfvars -detailed-exitcode ./terraform        
-      env:        
-        TF_LOG: DEBUG
+    - run: terraform init -backend-config=./terraform/envs/test/backend.tf ./terraform              
+    - run: terraform plan -var-file=./terraform/envs/test/test.tfvars -detailed-exitcode ./terraform        
+      env:                
         GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - name: Publish app to Google App Engine
       run: |
