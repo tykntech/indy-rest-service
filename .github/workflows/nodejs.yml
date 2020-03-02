@@ -21,9 +21,7 @@ jobs:
     #- run: npm run build --if-present
     #- run: npm test
       env:
-        CI: true
-        TF_LOG: DEBUG
-        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
+        CI: true        
     - name: Initialize Google Cloud SDK
       uses: zxyle/publish-gae-action@master
       with:
@@ -39,6 +37,8 @@ jobs:
         # The terraform version to download (if necessary) and use. Example: 0.12.13
         version: 0.12.21
     - run: terraform init -backend-config=./terraform/envs/test/backend.tf ./terraform              
+      env:                
+        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - run: terraform plan -var-file=./terraform/envs/test/test.tfvars -detailed-exitcode ./terraform        
       env:                
         GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
