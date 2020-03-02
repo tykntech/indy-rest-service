@@ -33,19 +33,19 @@ jobs:
         # An optional variables parameter can be used
         #gae_variables: ${{ secrets.GAE_VARIABLES }}
     - run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
-    - run: ls -la
-    - run: env
-      env:
-        CI: true
-        TF_LOG: DEBUG
-        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - name: Running terraform
       uses: marocchino/setup-terraform@v1.0.1
       with:
         # The terraform version to download (if necessary) and use. Example: 0.12.13
         version: 0.12.21
-    - run: terraform init -backend-config=./terraform/envs/dev/backend.tf ./terraform
-    - run: terraform plan -var-file=./terraform/envs/dev/dev.tfvars -detailed-exitcode ./terraform
+    - run: terraform init -backend-config=./terraform/envs/dev/backend.tf ./terraform        
+      env:        
+        TF_LOG: DEBUG
+        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
+    - run: terraform plan -var-file=./terraform/envs/dev/dev.tfvars -detailed-exitcode ./terraform        
+      env:        
+        TF_LOG: DEBUG
+        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - name: Publish app to Google App Engine
       run: |
         # This client-secret.json is converted by GCP_SA_KEY.        
