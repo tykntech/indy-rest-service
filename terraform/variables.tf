@@ -12,13 +12,3 @@ variable org_id {}
 variable subdomain {}
 
 variable environment {}
-
-variable keyfilename {}
-
-variable gcp_me_key {
-    default = { 
-        dev = "",
-        prod = "",
-        test = ""
-    }
-}

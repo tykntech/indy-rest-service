@@ -30,15 +30,7 @@ jobs:
         project_id: ${{ secrets.PROJECT_ID }}
         # An optional variables parameter can be used
         #gae_variables: ${{ secrets.GAE_VARIABLES }}
-    - name: Publish app to Google App Engine
-      run: |
-        # This client-secret.json is converted by GCP_SA_KEY.
-        gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
-        gcloud config set project ${{ secrets.PROJECT_ID }}
-        gcloud -q app deploy app.yaml --promote
-
-        # Suppose you need a cron task.
-        #gcloud -q app deploy cron.yaml
+      run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=~/client-secret.json
     - name: Running terraform
       uses: marocchino/setup-terraform@v1.0.1
       with:
@@ -46,3 +38,11 @@ jobs:
         version: 0.12.21
     - run: terraform init -backend-config=./terraform/envs/dev/backend.tf ./terraform
     - run: terraform plan -var-file=./terraform/envs/dev/dev.tfvars -detailed-exitcode ./terraform
+    - name: Publish app to Google App Engine
+      run: |
+        # This client-secret.json is converted by GCP_SA_KEY.        
+        gcloud config set project ${{ secrets.PROJECT_ID }}
+        gcloud -q app deploy app.yaml --promote
+
+        # Suppose you need a cron task.
+        #gcloud -q app deploy cron.yaml    
