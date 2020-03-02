@@ -33,7 +33,12 @@ jobs:
         # An optional variables parameter can be used
         #gae_variables: ${{ secrets.GAE_VARIABLES }}
     - run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
+    - run: ls -la
     - run: env
+      env:
+        CI: true
+        TF_LOG: DEBUG
+        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
     - name: Running terraform
       uses: marocchino/setup-terraform@v1.0.1
       with:
