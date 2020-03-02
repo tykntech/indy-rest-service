@@ -1,4 +1,4 @@
-provider "google" {
-  credentials = var.credentials[var.environment]
+provider "google" {  
+  credentials = file("../client-secret.json")
   region      = var.region
 }
