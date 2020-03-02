@@ -1,0 +1,6 @@
+region = "europe-west6"
+org_id = "396435930941"
+project_id = "development-269911"
+project_name = "development"
+subdomain = "dev-api"
+environment = "dev"

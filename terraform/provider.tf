@@ -1,3 +1,3 @@
-provider "google" {
-    region = var.region
+provider "google" {  
+  region      = var.region
 }
