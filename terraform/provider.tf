@@ -1,4 +1,4 @@
 provider "google" {
-  #credentials = file(var.keyfilename)
+  credentials = var.credentials[var.environment]
   region      = var.region
 }
