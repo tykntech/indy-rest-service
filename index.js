@@ -24,25 +24,28 @@ const getLedger = function(something) {
 
 app.use(bodyParser.json());
 
-app.get('/tx/:ledger?/:number', async(req, res) => {
-    const { ledger, number } = req.params;
+app.get('/tx/:ledger?/:amount?/:number', async(req, res) => {
+    const { ledger, number, amount } = req.params;
     console.trace(`Getting tx #${number} from ${ledger}`);
 
     const parsedConf = await zmqlib.ParseGenesisTx(conf);
     console.trace(`Using ${JSON.stringify(parsedConf)}`);
 
     const ledgerConnection = zmqlib.Wrap(parsedConf);
-    let resp;
-    try {
-        resp = await ledgerConnection.send({
+    let resp = [];
+    for (let it = 0; it <= amount; it++) {
+        resp.push(ledgerConnection.send({
             "operation": {
                 "type": "3",
                 "ledgerId": getLedger(ledger || 1),
-                "data": parseInt(number)
+                "data": parseInt(number + it)
             },
             "identifier": "LibindyDid211111111111",
             "protocolVersion": 2
-        });
+        }));
+    }
+    try {
+        await Promise.all(resp);
     } catch (error) {
         console.error(error);
         res.status(500).json({ message: error.message });
