@@ -30,7 +30,7 @@ app.get('/tx/:ledger?/:amount?/:number', async(req, res) => {
     let { ledger, number, amount } = req.params;
     amount = amount || 1;
 
-    if (amout > 20) {
+    if (amount > 20) {
         return res.status(429).json({ message: 'Amount should be <20.' });
     }
 
