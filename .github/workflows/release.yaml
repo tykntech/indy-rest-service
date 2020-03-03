@@ -18,7 +18,7 @@ jobs:
         service_account_email: ${{ secrets.PROD_GCP_SA_EMAIL }}
         service_account_key: ${{ secrets.PROD_GCP_SA_KEY }}
         project_id: ${{ secrets.PROD_PROJECT_ID }}
-    - name: Creating client-secrets.json
+    - name: Activating GCloud account
       run: gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }} --key-file=client-secret.json
     
     - name: Setting up terraform 
@@ -27,10 +27,9 @@ jobs:
         version: 0.12.21
     - name: Running Init/Plan
       run: |
-        terraform init -backend-config=envs/prod/backend.tf       
-        terraform plan -out=plan.tfout -var-fileenvs/prod/prod.tfvars -detailed-exitcode 
-        terraform apply -var-file=envs/prod/prod.tfvars "plan.tfout"
-      working-directory: ./terraform
+        terraform init -backend-config=./terraform/envs/prod/backend.tf ./terraform      
+        terraform plan -out=plan.tfout -var-file=./terraform/envs/prod/prod.tfvars -detailed-exitcode ./terraform
+        terraform apply "plan.tfout" 
       env:                
         GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json" 
 

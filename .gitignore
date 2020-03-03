@@ -3,3 +3,4 @@ node_modules
 .terraform
 *.tfout
 *.tfstate.backup
+client-secret.json
