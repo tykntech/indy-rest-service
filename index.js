@@ -9,14 +9,17 @@ const conf = process.env.GENESIS_TX ||
     '{"reqSignature":{},"txn":{"data":{"data":{"alias":"ev1","client_ip":"54.207.36.81","client_port":"9702","node_ip":"18.231.96.215","node_port":"9701","services":["VALIDATOR"]},"dest":"GWgp6huggos5HrzHVDy5xeBkYHxPvrRZzjPNAyJAqpjA"},"metadata":{"from":"J4N1K1SEB8uY2muwmecY5q"},"type":"0"},"txnMetadata":{"seqNo":1,"txnId":"b0c82a3ade3497964cb8034be915da179459287823d92b5717e6d642784c50e6"},"ver":"1"}';
 // '{"reqSignature":{},"txn":{"data":{"data":{"alias":"Node1","blskey":"4N8aUNHSgjQVgkpm8nhNEfDf6txHznoYREg9kirmJrkivgL4oSEimFF6nsQ6M41QvhM2Z33nves5vfSn9n1UwNFJBYtWVnHYMATn76vLuL3zU88KyeAYcHfsih3He6UHcXDxcaecHVz6jhCYz1P2UZn2bDVruL5wXpehgBfBaLKm3Ba","blskey_pop":"RahHYiCvoNCtPTrVtP7nMC5eTYrsUA8WjXbdhNc8debh1agE9bGiJxWBXYNFbnJXoXhWFMvyqhqhRoq737YQemH5ik9oL7R4NTTCz2LEZhkgLJzB3QRQqJyBNyv7acbdHrAT8nQ9UkLbaVL9NBpnWXBTw4LEMePaSHEw66RzPNdAX1","client_ip":"127.0.0.1","client_port":9702,"node_ip":"127.0.0.1","node_port":9701,"services":["VALIDATOR"]},"dest":"Gw6pDLhcBcoQesN72qfotTgFa7cbuqZpkX3Xo6pLhPhv"},"metadata":{"from":"Th7MpTaRZVRYnPiabds81Y"},"type":"0"},"txnMetadata":{"seqNo":1,"txnId":"fea82e10e894419fe2bea7d96296a6d46f50f93f9eeda954ec461b2ed2950b62"},"ver":"1"}';
 
+const ledgers = ['POOL', 'DOMAIN', 'CONFIG']
+
 const getLedger = function(something) {
     switch (something.toString().toLowerCase()) {
+        case 'domain':
         case '1':
             return 1;
+        case '0':
         case 'pool':
             return 0;
-        case 'domain':
-            return 1;
+        case '2':
         case 'config':
             return 2;
         default:
@@ -26,15 +29,55 @@ const getLedger = function(something) {
 
 app.use(bodyParser.json());
 
-app.get('/tx/:ledger?/:amount?/:number', async(req, res) => {
-    let { ledger, number, amount } = req.params;
+app.get('/sizes', async(req, res) => {
+    console.debug('Sizes called.')
+    const parsedConf = await zmqlib.ParseGenesisTx(conf);
+    let resp = [];
+
+    for (let it = 0; it < ledgers.length; it++) {
+        try {
+            const ledgerConnection = zmqlib.Wrap(parsedConf);
+            resp.push(ledgerConnection.send({
+                "operation": {
+                    "type": "3",
+                    "ledgerId": getLedger(ledgers[it]),
+                    "data": 1
+                },
+                "identifier": "LibindyDid211111111111",
+                "protocolVersion": 2
+            }));
+        } catch (e) {
+            console.error(e);
+        }
+    }
+    console.debug('Querying ...')
+    try {
+        resp = await Promise.all(resp);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ message: error.message });
+    }
+    console.debug(`resp as ${resp}`)
+    const response = resp.map(tx => {
+        return {
+            ledger: ledgers[tx.result.state_proof.multi_signature.value.ledger_id],
+            size: tx.result.data.ledgerSize
+        }
+    });
+    console.debug(response)
+    res.status(200).json(response);
+})
+
+app.get('/tx/:ledger?/:number/:amount?/:forward?', async(req, res) => {
+    let { ledger, number, amount, forward } = req.params;
     amount = amount || 1;
+    forward = forward === 'false' ? false : true;
 
     if (amount > 20) {
         return res.status(429).json({ message: 'Amount should be <20.' });
     }
 
-    console.debug(`Getting ${amount} txs after #${number} from ${ledger}`);
+    console.debug(`Getting ${amount} txs ${forward? 'from':'until'} #${number} from ${ledger}`);
 
     const parsedConf = await zmqlib.ParseGenesisTx(conf);
     let resp = [];
@@ -46,7 +89,7 @@ app.get('/tx/:ledger?/:amount?/:number', async(req, res) => {
                 "operation": {
                     "type": "3",
                     "ledgerId": getLedger(ledger || 1),
-                    "data": parseInt(number) + it
+                    "data": forward ? parseInt(number) + it : parseInt(number) - it
                 },
                 "identifier": "LibindyDid211111111111",
                 "protocolVersion": 2
