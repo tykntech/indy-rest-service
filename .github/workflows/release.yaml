@@ -12,6 +12,7 @@ jobs:
     name: Provisioning infrastructure
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v2
     - name: Initialize Google Cloud SDK
       uses: zxyle/publish-gae-action@master
       with:
