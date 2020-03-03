@@ -1,0 +1,57 @@
+on:
+  release:
+    paths:
+      - "**.{tf|js}"      
+    types:
+      [published, created, edited]
+
+jobs:
+  infra:
+    name: Provisioning infrastructure
+    runs-on: ubuntu-latest
+    steps:
+    - name: Initialize Google Cloud SDK
+      uses: zxyle/publish-gae-action@master
+      with:
+        service_account_email: ${{ secrets.PROD_GCP_SA_EMAIL }}
+        service_account_key: ${{ secrets.PROD_GCP_SA_KEY }}
+        project_id: ${{ secrets.PROD_PROJECT_ID }}
+    - name: Creating client-secrets.json
+      run: gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }} --key-file=client-secret.json
+    
+    - name: Setting up terraform 
+      uses: marocchino/setup-terraform@v1.0.1
+      with:
+        version: 0.12.21
+    - name: Running Init/Plan
+      run: |
+        terraform init -backend-config=envs/prod/backend.tf       
+        terraform plan -out=plan.tfout -var-fileenvs/prod/prod.tfvars -detailed-exitcode 
+        terraform apply -var-file=envs/prod/prod.tfvars "plan.tfout"
+      working-directory: ./terraform
+      env:                
+        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json" 
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: infra
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+        with:
+          node-version: '10.x'
+      - run: npm ci
+      - run: npm test
+      - name: Initialize Google Cloud SDK
+        uses: zxyle/publish-gae-action@master
+        with:
+          service_account_email: ${{ secrets.PROD_GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.PROD_GCP_SA_KEY }}
+          project_id: ${{ secrets.PROD_PROJECT_ID }}
+      - name: Creating client-secrets.json
+        run: gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }} --key-file=client-secret.json
+      - name: Publish app to Google App Engine
+        run: |
+          # This client-secret.json is converted by PROD_GCP_SA_KEY.        
+          gcloud config set project ${{ secrets.PROD_PROJECT_ID }}
+          gcloud -q app deploy app.yaml --promote
