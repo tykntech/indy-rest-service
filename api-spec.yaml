@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: Tykn's Indy Rest Service
+  version: 1.0.0
+  description: Tykn alternative to ZeroMQ when communicating with Hyperledger INDY
+  contact:
+    email: help@tykn.tech
+  license:
+    name: MIT
+externalDocs:
+  description: Find out more about Swagger
+  url: 'http://swagger.io'
+servers:
+  - url: 'https://api.tykn.tech/'
+paths:
+  /tx/{ledger}/{starting-block}/{offset}/{is-forward}:
+    get:
+      description: Get transactions from the ledger
+      parameters:
+        - name: ledger
+          in: path
+          description: From which ledger should retrieve the transaction
+          required: true
+          schema:
+            type: string
+            example: domain
+            enum:
+              - CONFIG
+              - POOL
+              - DOMAIN
+        - name: starting-block
+          in: path
+          description: which block to get (or starting point inclusive)
+          required: true
+          schema:
+            type: number
+            example: 32
+        - name: offset
+          in: path
+          description: OPTIONAL!!! How many blocks from/before the starting-block should be retrieved
+          required: true
+          schema:
+            type: number
+            default: 1
+            example: 3
+        - name: is-forward
+          in: path
+          description: >-
+            OPTIONAL!!! If true gets X tx from starting point. If false, gets X transactions until starting point.
+          required: true
+          schema:
+            type: boolean
+            default: true
+            example: false
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TxResponse'
+  /sizes:
+    get:
+      description: Get ledger sizes
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LedgerSizesResponse'
+components:
+  schemas:
+    Transaction: 
+      type: object
+      properties:
+        ledgerSize:
+          type: number
+          example: 254
+        txn: 
+          type: object
+          properties:
+            metadata: 
+              type: object
+              properties:
+                from:
+                  type: string
+                  example: "JX29L7h6UpDNEThiaTYx9N"
+            type:
+              type: string
+              enum: 
+                - 0
+                - 1
+                - 2
+            data:
+              type: object
+        txnMetadata: 
+          type: object
+          properties:
+            seqNo:
+              type: number
+              example: 15239
+        reqSignature: 
+          type: object
+        rootHash: 
+          type: string
+          example: "239dJiY4pNymcMBLq4U7wHqt778ZwJ57hQNXEoZJNYok"
+        ver:
+          type: number
+        auditPath:
+          type: array
+          items: 
+            type: string
+    LedgerSizesResponse:
+      type: object
+      properties:
+        DOMAIN:
+          type: integer
+        CONFIG:
+          type: integer
+        POOL:
+          type: integer
+    TxResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/Transaction'
