@@ -5,7 +5,7 @@ on:
     paths:
       - "**.{tf|js}"      
     types:
-      [published, created, edited]
+      [published]
 
 jobs:
   infra:
