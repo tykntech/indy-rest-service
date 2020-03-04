@@ -13,6 +13,21 @@ externalDocs:
 servers:
   - url: 'https://api.tykn.tech/'
 paths:
+  /tx:
+    post:
+      description: Post a transaction to the ledger
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Transaction'            
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Transaction'
   /tx/{ledger}/{starting-block}/{offset}/{is-forward}:
     get:
       description: Get transactions from the ledger
@@ -71,6 +86,37 @@ paths:
                 $ref: '#/components/schemas/LedgerSizesResponse'
 components:
   schemas:
+    WriteTransaction:
+      type: object
+      properties:
+        operation:
+          type: object
+          properties:
+            type:
+              type: number
+              example: 4
+            version:
+              type: string
+              example: "1.0"
+            text:
+              type: string
+              example: "some big agreement text"
+        identifier:
+          type: string
+          example: "Th7MpTaRZVRYnPiabds81Y"
+          description: Verkey of the transaction owner
+        reqId:
+          type: number
+          example: 1575979116
+          description: Usually a EPOCH UNIX TIMESTAMP 
+        protocolVersion:
+          type: number
+          example: 2
+        signatures:
+          type: array
+          items:
+            type: string
+        
     Transaction: 
       type: object
       properties:
