@@ -27,7 +27,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/Transaction'
+                $ref: '#/components/schemas/WriteTransaction'
   /tx/{ledger}/{starting-block}/{offset}/{is-forward}:
     get:
       description: Get transactions from the ledger
