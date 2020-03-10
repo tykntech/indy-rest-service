@@ -17,7 +17,6 @@ module.exports = function setTxEndpoint(router) {
         for (let it = 0; it < amount; it++) {
             try {
                 const cfg = req.parsedConfig[Math.floor(Math.random() * Math.floor(req.parsedConfig.length))];
-                console.log(cfg);
                 const ledgerConnection = zmqlib.Wrap(cfg);
                 resp.push(ledgerConnection.send({
                     "operation": {
@@ -38,6 +37,6 @@ module.exports = function setTxEndpoint(router) {
             console.error(error);
             res.status(500).json({ message: error.message });
         }
-        res.status(200).json(resp.map(tx => tx.result.data));
+        res.status(200).json(resp.filter(tx => tx.result.data).map(tx => tx.result.data));
     });
 }
