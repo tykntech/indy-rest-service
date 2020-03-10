@@ -1,8 +1,8 @@
 const zmqlib = require('@tykntech/indy-zmq-lib');
 const getLedger = require('../lib/getLedger');
 
-module.exports = function setTxEndpoint(app, conf) {
-    app.get('/tx/:ledger?/:number/:amount?/:forward?', async(req, res) => {
+module.exports = function setTxEndpoint(router) {
+    router.get('/tx/:ledger?/:number/:amount?/:forward?', async (req, res) => {
         let { ledger, number, amount, forward } = req.params;
         amount = amount || 1;
         forward = forward === 'false' ? false : true;
@@ -11,14 +11,14 @@ module.exports = function setTxEndpoint(app, conf) {
             return res.status(429).json({ message: 'Amount should be <20.' });
         }
 
-        console.debug(`Getting ${amount} txs ${forward? 'from':'until'} #${number} from ${ledger}`);
-
-        const parsedConf = await zmqlib.ParseGenesisTx(conf);
+        console.debug(`Getting ${amount} txs ${forward ? 'from' : 'until'} #${number} from ${ledger}`);
         let resp = [];
 
         for (let it = 0; it < amount; it++) {
             try {
-                const ledgerConnection = zmqlib.Wrap(parsedConf);
+                const cfg = req.parsedConfig[Math.floor(Math.random() * Math.floor(req.parsedConfig.length))];
+                console.log(cfg);
+                const ledgerConnection = zmqlib.Wrap(cfg);
                 resp.push(ledgerConnection.send({
                     "operation": {
                         "type": "3",
