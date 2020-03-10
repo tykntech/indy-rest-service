@@ -38,10 +38,118 @@ Try our OpenAPI 3.0 spec at: http://api.tykn.tech/doc
 ---
 ## How it works?
 
-Eliminating the Indy-SDK, it's necessary to build the transactions ourselves. All needed is: 
+The API expects a transaction object built following the [INDY specs](https://readthedocs.org/projects/indy-node/downloads/pdf/latest/). Usually, the INDY-SDK builds those transactions.
+
+A transaction-builder tool is being developed to help build transactions but, meanwhile, it needs to be done manually.
+
 1. Create a transaction (ATTRIB/NYM/SCHEMA_DEF/SCHEMA)
+```JSON
+// NYM transaction
+{
+  "operation": {
+    "type": "1",
+    "dest": "LnXR1rPnncTPZvRdmJKhJQ",
+    "role": "0",
+    // 000000000000000000000000Trustee2
+    "verkey": "BnSWTUQmdYCewSGFrRUhT6LmKdcCcSzRGqWXMPnEP168" 
+  },
+  "taaAcceptance": {
+    "taaDigest": "8cee5d7a573e4893b08ff53a0761a22a1607df3b3fcd7e75b98696c92879641f",
+    "mechanism": "product_eula",
+    "time": 1583798400
+  },
+  "identifier": "Th7MpTaRZVRYnPiabds81Y",
+  "reqId": 1583864223,
+  "protocolVersion": 2,
+  "signatures": {
+    // 000000000000000000000000Steward1
+    "Th7MpTaRZVRYnPiabds81Y": "4z6WfmWonquBEG8SzbALJYXTVJNseiJGAxjrejrCXduGACSCY1ViEMxPp3sjHSh9rHsF7byuvXQVbUpmPCqvmfDE", 
+    // 000000000000000000000000Trustee1
+    "V4SGRU86Z58d6TV7PBUe6f": "345W7oCrC6GupUhmKeaZ5X6fQ72so8XcCKqu12nQzMYWdZJWwRtABdwS9ZNpDVGW53f5no4HiDAz1ni4Dxe4gDmu" 
+  }
+}
+``` 
+```JSON
+// SCHEMA transaction example
+{
+  "operation": {
+    "type": "101",
+    "data": {
+      "version": "1.0",
+      "name": "Degree",
+      "attr_names": [
+        "undergrad",
+        "last_name",
+        "first_name",
+        "birth_date",
+        "postgrad",
+        "expiry_dat"
+      ]
+    }
+  },
+  "taaAcceptance": {
+    "taaDigest": "8cee5d7a573e4893b08ff53a0761a22a1607df3b3fcd7e75b98696c92879641f",
+    "mechanism": "product_eula",
+    "time": 1583798400
+  },
+  "identifier": "Th7MpTaRZVRYnPiabds81Y",
+  "reqId": 1583853291,
+  "protocolVersion": 2,
+  "signatures": {
+    "Th7MpTaRZVRYnPiabds81Y": "8FQijmUrd1ML45nQD3MZ8Ugb9VMyyxWFNyypeNT8d4XKeP66d2VLNUE1SXMZB7PyhM6BU8ZDYJUPF4SAWJoiMoi"
+  }
+}
 ```
-A tool to create transactions is on our road map that could also validate it after signatures
+```JSON
+// AML transaction example
+{
+  "operation": {
+    "type": "5",
+    "version": "1.0",
+    "aml": {
+      "eula": "Included in the EULA for the product being used",
+      "service_agreement": "Included in the agreement with the service provider managing the transaction",
+      "click_agreement": "Agreed through the UI at the time of submission",
+      "session_agreement": "Agreed at wallet instantiation or login"
+    },
+    "amlContext": "http://aml-context-descr"
+  },
+  "identifier": "Th7MpTaRZVRYnPiabds81Y",
+  "reqId": 1583864614,
+  "protocolVersion": 2,
+  "signatures": {
+    "Th7MpTaRZVRYnPiabds81Y": "3GDAqEQ5VUtEz3ytk2dUQymgmZ5UAKNPF8U4jrvXfG53ZFCyTZ2FadV9xpVtiyVuFNbujoaupSRTBkAQJ1u7nXLZ",
+    "V4SGRU86Z58d6TV7PBUe6f": "3Zr2fhcWe5T2bNpUF3SY7CmaY9yN596QwPz58tyHoXLLC7gjo2b1btWkqGDs6SGX1UDpLHky6pPebJFWAcCj1CWd"
+  }
+}
+```
+```JSON
+// TAA transaction example
+{
+  "operation": {
+    "type": "4",
+    "version": "1.0",
+    "text": "Here goes some acceptance text ..."
+  },
+  "identifier": "Th7MpTaRZVRYnPiabds81Y",
+  "reqId": 1583864570,
+  "protocolVersion": 2,
+  "signatures": {
+    "Th7MpTaRZVRYnPiabds81Y": "2TayPJ4CyWXhfLDJ7vbNXDg4ryH4oEbVeTeraGcDHXDgupaseedojiu7JsydPypWmiB8edGdtKEYasQcucnCAt4y",
+    "V4SGRU86Z58d6TV7PBUe6f": "39mdgqDxzmePbJA9HnFVrVEdPNCrDW7RSARspt6aEzTvhVSdtbUnhti3D5ouCPgNox8EcP8TqhauZ8qjj2ke4Cew"
+  }
+}
+```
+```JSON
+// GET TAA data
+{
+  "operation": {
+    "type": "6"
+  },
+  "identifier": "LibindyDid211111111111",
+  "reqId": 1583864570,
+  "protocolVersion": 2
+}
 ```
 2. Sign the transaction by the parties (you need to move the JSON around and sign it yourself)
 ```

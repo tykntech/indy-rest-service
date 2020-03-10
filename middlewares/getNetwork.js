@@ -12,6 +12,10 @@ exports.getNetwork =
         const { network } = req.params
         console.log(`Using ${network} as network.`)
 
+        if (!networks[network]) {
+            return res.status(404).json({ message: `The network ${network} is not available in this API.` })
+        }
+
         req.parsedConfig = await Promise.all(networks[network].map(async net => await zmqlib.ParseGenesisTx(net)))
 
         next();

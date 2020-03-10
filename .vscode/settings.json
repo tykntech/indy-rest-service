@@ -1,5 +1,8 @@
 {
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "prettier.semi": true
+  "prettier.semi": true,
+  "cSpell.words": [
+    "verkey"
+  ]
 }
