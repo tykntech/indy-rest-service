@@ -28,7 +28,7 @@ npm i
 
 An then start the service:
 ```
-npm start
+npm start // npm mon for nodemon
 ```
 ---
 ## Open API Spec 3.0

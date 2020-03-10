@@ -2,15 +2,14 @@ const zmqlib = require('@tykntech/indy-zmq-lib');
 const getLedger = require('../lib/getLedger');
 const ledgers = require('../lib/ledgers');
 
-module.exports = function setGetSizesEndpoint(app, conf) {
-    app.get('/:network/sizes', async(req, res) => {
+module.exports = function setGetSizesEndpoint(router) {
+    router.get('/sizes', async (req, res) => {
         console.debug('Sizes called.')
-        const parsedConf = await zmqlib.ParseGenesisTx(conf);
         let resp = [];
 
         for (let it = 0; it < ledgers.length; it++) {
             try {
-                const ledgerConnection = zmqlib.Wrap(parsedConf);
+                const ledgerConnection = zmqlib.Wrap(req.parsedConfig[Math.floor(Math.random() * Math.floor(req.parsedConfig.length))]);
                 resp.push(ledgerConnection.send({
                     "operation": {
                         "type": "3",

@@ -1,21 +1,76 @@
-[{
-    "txn": {
-        "data": {
+[
+    {
+        "txn": {
             "data": {
-                "alias": "australia",
-                "client_ip": "52.64.96.160",
-                "client_port": "9702",
-                "node_ip": "52.64.96.160",
-                "node_port": "9701",
-                "services": [
-                    "VALIDATOR"
-                ]
+                "data": {
+                    "alias": "australia",
+                    "client_ip": "52.64.96.160",
+                    "client_port": "9702",
+                    "node_ip": "52.64.96.160",
+                    "node_port": "9701",
+                    "services": [
+                        "VALIDATOR"
+                    ]
+                },
+                "dest": "UZH61eLH3JokEwjMWQoCMwB3PMD6zRBvG6NCv5yVwXz"
             },
-            "dest": "UZH61eLH3JokEwjMWQoCMwB3PMD6zRBvG6NCv5yVwXz"
-        },
-        "metadata": {
-            "from": "3U8HUen8WcgpbnEz1etnai"
-        },
-        "type": "0"
+            "metadata": {
+                "from": "3U8HUen8WcgpbnEz1etnai"
+            },
+            "type": "0"
+        }
+    },
+    {
+        "txn": {
+            "data": {
+                "data": {
+                    "alias": "CULedger",
+                    "blskey": "3eL5MB5HohfNh3LgFbpM6KG7Q6XZeeJbo7U8L3bNK1rw8Eu3WGrPm69Hq6VbCb6BbqesV5vD9PsZeHpy4dxdL3qcHyYxT4gZzNyknKZt8a7PB2kaK9VZC49pDcntHigLP6KNKM6fpexesYz32DZ2dQuPmWr7QfLNfFNBWBzQxCTx88G",
+                    "blskey_pop": "RD341t9u1EAge5prckbmke1wDFCCeAByVAsGfT3GfPGRWJ8nT3nL55WbtgMPQRyLZ1AavHkP1JXnjgaoq9Ja3ETPkthjRZ3WbN3wxCacNr9ug5t4h39DFdHisvnFdR3JUvcv7vBoDVmNFUCwmDBAUiZbfw7k7S7zz8hf6Yj919PPE7",
+                    "client_ip": "169.63.79.22",
+                    "client_port": 9701,
+                    "node_ip": "169.63.79.22",
+                    "node_port": 9702,
+                    "services": [
+                        "VALIDATOR"
+                    ]
+                },
+                "dest": "7WhrDsysVnBZHtjwwFAzVSmyGA1jpnBbmqBgs4q9wk9g"
+            },
+            "metadata": {
+                "digest": "0893f92c17af7bc5e4ecad64ab83a641c3e9e830cf96d7856ed4d813f7ea3e8c",
+                "from": "CwzYfKJZdnYJXAR2jtcbLY",
+                "payloadDigest": "cd7a228c2e3ffeead1ff98efde84ea9bb3c356053abf3f5b24a6e5b6b6b8b920",
+                "reqId": 1573249258771117600
+            },
+            "protocolVersion": 2,
+            "type": "0"
+        }
+    },
+    {
+        "txn": {
+            "data": {
+                "data": {
+                    "alias": "DigiCert-Node",
+                    "blskey": "34ZnAnof88aahn2jShZqUPyvWXjM4pdjBukbH44BXAyZGcY2rivuMLHwCPZGGRf7JAVx6zGdnQiFziqwj8ndtGghht67H2DqHhoxxeCvgxv5aMAVW57z8ekGyMQXq1UWYEYgjFqY2Fi9bCTkGb4ywn4JEFvnfk3aEhVS92CpG5eYQHs",
+                    "blskey_pop": "R5ksJ4cADE265315njhARQJS3eEqC4bBFjz6sW49Lc7cF814pMdKk4AjjHLCvKeViU6EP8YvhvpiuMhEYzmabsMnj7oesJGp6eqxkjSabFZ7LWk5wzfBW53fSAtBrK4KSGzAfU9zsmsNqBMuK1fiC7J1emxjaZfeXWkBV63dD36i95",
+                    "client_ip": "34.250.128.221",
+                    "client_port": 9702,
+                    "node_ip": "34.250.128.221",
+                    "node_port": 9701,
+                    "services": [
+                        "VALIDATOR"
+                    ]
+                },
+                "dest": "5mYsynpwzx3muLWYP5ZmqWK8oZtP5k7xj5w85NDKJSM6"
+            },
+            "metadata": {
+                "digest": "f5597be009afc3b9decda1e09c8f8d74bd039ac6d6cb890051c88ebeffaa16e9",
+                "from": "6aAJEoijPh3yqeDe9JCqRg",
+                "reqId": 1553030138803227600
+            },
+            "protocolVersion": 2,
+            "type": "0"
+        }
     }
-}]
+]

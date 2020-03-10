@@ -13,9 +13,15 @@ externalDocs:
 servers:
   - url: 'https://api.tykn.tech/'
 paths:
-  /tx:
+  /{network}/tx:
     post:
       description: Post a transaction to the ledger
+      parameters:
+        - name: network
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Network'
       requestBody:
         content:
           application/json:
@@ -28,10 +34,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/WriteTransaction'
-  /tx/{ledger}/{starting-block}/{offset}/{is-forward}:
+  /{network}/tx/{ledger}/{starting-block}/{offset}/{is-forward}:
     get:
       description: Get transactions from the ledger
       parameters:
+        - name: network
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Network'
         - name: ledger
           in: path
           description: From which ledger should retrieve the transaction
@@ -74,9 +85,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/TxResponse'
-  /sizes:
+  /{network}/sizes:
     get:
       description: Get ledger sizes
+      parameters: 
+        - name: network
+          in: path
+          required: true
+          schema:
+            $ref: '#/components/schemas/Network'
       responses:
         '200':
           description: OK
@@ -86,6 +103,19 @@ paths:
                 $ref: '#/components/schemas/LedgerSizesResponse'
 components:
   schemas:
+    Network:
+      type: string
+      enum:
+        - sovmain
+        - sovstaging
+        - sovbuilder
+        - sovlocal
+      description: >
+        Network to execute the call:
+        * `sovmain`: Main sovrin network
+        * `sovstaging`: Staging sovrin network
+        * `sovbuilder`: Builders sovrin network
+        * `sovlocal` : Local sovrin network (Only available on-prem)
     WriteTransaction:
       type: object
       properties:
@@ -135,9 +165,9 @@ components:
             type:
               type: string
               enum: 
-                - 0
-                - 1
-                - 2
+                - "0"
+                - "1"
+                - "2"
             data:
               type: object
         txnMetadata: 

@@ -1,9 +1,8 @@
 const zmqlib = require('@tykntech/indy-zmq-lib');
 
-module.exports = function setPostTxEndpoint(app, conf) {
-    app.post('/:network/tx', async(req, res) => {
-        const parsedConf = await zmqlib.ParseGenesisTx(conf);
-        const ledger = zmqlib.Wrap(parsedConf);
+module.exports = function setPostTxEndpoint(router) {
+    router.post('/tx', async (req, res) => {
+        const ledger = zmqlib.Wrap(req.parsedConfig[Math.floor(Math.random() * Math.floor(req.parsedConfig.length))]);
         let resp;
         try {
             resp = await ledger.send(req.body);
