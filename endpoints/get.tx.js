@@ -2,7 +2,7 @@ const zmqlib = require('@tykntech/indy-zmq-lib');
 const getLedger = require('../lib/getLedger');
 
 module.exports = function setTxEndpoint(app, conf) {
-    app.get('/tx/:ledger?/:number/:amount?/:forward?', async(req, res) => {
+    app.get('/:network/tx/:ledger?/:number/:amount?/:forward?', async(req, res) => {
         let { ledger, number, amount, forward } = req.params;
         amount = amount || 1;
         forward = forward === 'false' ? false : true;

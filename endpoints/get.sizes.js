@@ -3,7 +3,7 @@ const getLedger = require('../lib/getLedger');
 const ledgers = require('../lib/ledgers');
 
 module.exports = function setGetSizesEndpoint(app, conf) {
-    app.get('/sizes', async(req, res) => {
+    app.get('/:network/sizes', async(req, res) => {
         console.debug('Sizes called.')
         const parsedConf = await zmqlib.ParseGenesisTx(conf);
         let resp = [];
