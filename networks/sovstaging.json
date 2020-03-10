@@ -1,0 +1,21 @@
+[{
+    "txn": {
+        "data": {
+            "data": {
+                "alias": "australia",
+                "client_ip": "52.64.96.160",
+                "client_port": "9702",
+                "node_ip": "52.64.96.160",
+                "node_port": "9701",
+                "services": [
+                    "VALIDATOR"
+                ]
+            },
+            "dest": "UZH61eLH3JokEwjMWQoCMwB3PMD6zRBvG6NCv5yVwXz"
+        },
+        "metadata": {
+            "from": "3U8HUen8WcgpbnEz1etnai"
+        },
+        "type": "0"
+    }
+}]
