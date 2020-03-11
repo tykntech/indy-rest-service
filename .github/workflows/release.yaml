@@ -28,7 +28,7 @@ jobs:
           tf_actions_subcommand: 'init'
           tf_actions_working_dir: terraform
           tf_actions_comment: true
-          args: '-backend-config=envs/test/backend.tf'
+          args: '-backend-config=envs/prod/backend.tf'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: '../client-secret.json'
       - name: 'Terraform Plan'
@@ -38,7 +38,7 @@ jobs:
           tf_actions_subcommand: 'plan'
           tf_actions_working_dir: terraform
           tf_actions_comment: true
-          args: '-var-file=envs/test/test.tfvars -out=plan.tfout'
+          args: '-var-file=envs/prod/prod.tfvars -out=plan.tfout'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: '../client-secret.json'
       - name: 'Terraform Apply'
