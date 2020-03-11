@@ -45,7 +45,7 @@ jobs:
           tf_actions_comment: true
           args: '-backend-config=envs/test/backend.tf'
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: './client-secret.json'
+          GOOGLE_APPLICATION_CREDENTIALS: '../client-secret.json'
       - name: 'Terraform Plan'
         uses: hashicorp/terraform-github-actions@master
         with:
@@ -55,4 +55,4 @@ jobs:
           tf_actions_comment: true
           args: '-var-file=envs/test/test.tfvars'
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: './client-secret.json'
+          GOOGLE_APPLICATION_CREDENTIALS: '../client-secret.json'
