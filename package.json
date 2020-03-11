@@ -1,23 +1,23 @@
 {
-    "name": "indy-wrapper",
-    "version": "0.1.0",
-    "main": "index.js",
-    "license": "MIT",
-    "repository": {
-        "url": "https://github.com/tykntech/indy-rest-service"
-    },
-    "scripts": {
-        "start": "node index.js",
-        "mon": "nodemon index.js"
-    },
-    "dependencies": {
-        "@tykntech/indy-zmq-lib": "0.1.1-dev.5",
-        "deasync": "^0.1.17",
-        "express": "^4.17.1",
-        "swagger-ui-express": "^4.1.3",
-        "yamljs": "^0.3.0"
-    },
-    "devDependencies": {
-        "nodemon": "^2.0.2"
-    }
+  "name": "indy-wrapper",
+  "version": "0.1.0-beta3",
+  "main": "index.js",
+  "license": "MIT",
+  "repository": {
+    "url": "https://github.com/tykntech/indy-rest-service"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "mon": "nodemon index.js"
+  },
+  "dependencies": {
+    "@tykntech/indy-zmq-lib": "0.1.1-dev.5",
+    "deasync": "^0.1.17",
+    "express": "^4.17.1",
+    "swagger-ui-express": "^4.1.3",
+    "yamljs": "^0.3.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.2"
+  }
 }
