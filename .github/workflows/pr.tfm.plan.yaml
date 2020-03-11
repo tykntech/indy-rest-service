@@ -43,7 +43,7 @@ jobs:
           tf_actions_subcommand: 'init'
           tf_actions_working_dir: terraform
           tf_actions_comment: true
-          args: '-backend-config=terraform/envs/test.backend.tf'
+          args: '-backend-config=terraform/envs/test/backend.tf'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: './client-secret.json'
       - name: 'Terraform Plan'
