@@ -2,7 +2,10 @@
 
 # Tykn's rest service
 
-This is Tykn's alternative to communicate with Hyperledger INDY nodes. With this service, it is possible to send REST requests to a INDY node without needing a ZeroMQ connection or any other messaging system.
+This is Tykn’s alternative to communicate with Hyperledger Indy nodes. With this service it’s possible to send REST requests to the nodes without needing ZeroMQ a complex messaging system. 
+
+Currently it is already hard to onboard new developers to Indy and Self-Sovereign Identity as both require a lot of knowledge around blockchain, cryptography and identity. Putting another communication paradigm in just makes it harder. So, as a first step, we decided to build a tool that could facilitate communication, creating this REST interface that any client can call to read and write to any Hyperledger Indy node.
+
 
 ---
 ## How to deploy it
