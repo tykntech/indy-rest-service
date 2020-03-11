@@ -1,9 +1,9 @@
 name: Push TF at any branch/CI
 
 on:
-  pull_request:    
+  pull_request:
     branches:
-      - master      
+      - master
       - test
     paths:
       - '**.tf'
@@ -15,34 +15,44 @@ jobs:
       matrix:
         node-version: [10.x]
     steps:
-    - uses: actions/checkout@v2
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v1
-      with:
-        node-version: ${{ matrix.node-version }}
-    - name: 'NPM CI'
-      run: |
-        npm ci
-        npm run build --if-present
-        npm test
-      env:
-        CI: true        
-    - name: Initialize Google Cloud SDK
-      uses: zxyle/publish-gae-action@master
-      with:
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-        project_id: ${{ secrets.PROJECT_ID }}
-    - name: Creating client-secrets.json
-      run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
-    
-    - name: Setting up terraform 
-      uses: marocchino/setup-terraform@v1.0.1
-      with:
-        version: 0.12.21
-    - name: Running Init/Plan
-      run: |
-        terraform init -backend-config=./terraform/envs/test/backend.tf ./terraform              
-        terraform plan -out=plan.tfout -var-file=./terraform/envs/test/test.tfvars -detailed-exitcode ./terraform 
-      env:                
-        GOOGLE_APPLICATION_CREDENTIALS: "./client-secret.json"
+      - uses: actions/checkout@v2
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v1
+        with:
+          node-version: ${{ matrix.node-version }}
+      - name: 'NPM CI'
+        run: |
+          npm ci
+          npm run build --if-present
+          npm test
+        env:
+          CI: true
+      - name: Initialize Google Cloud SDK
+        uses: zxyle/publish-gae-action@master
+        with:
+          service_account_email: ${{ secrets.GCP_SA_EMAIL }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          project_id: ${{ secrets.PROJECT_ID }}
+      - name: Creating client-secrets.json
+        run: gcloud auth activate-service-account ${{ secrets.GCP_SA_EMAIL }} --key-file=client-secret.json
+
+      - name: 'Terraform Init'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.21
+          tf_actions_subcommand: 'init'
+          tf_actions_working_dir: ./terraform
+          tf_actions_comment: true
+          args: '-var-file=terraform/envs/test.backend.tf ./terraform'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: './client-secret.json'
+      - name: 'Terraform Plan'
+        uses: hashicorp/terraform-github-actions@master
+        with:
+          tf_actions_version: 0.12.21
+          tf_actions_subcommand: 'plan'
+          tf_actions_working_dir: ${{ env.tf_working_dir }}
+          tf_actions_comment: true
+          args: '-var-file=terraform/envs/test.backend.tf ./terraform'
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: './client-secret.json'
