@@ -168,7 +168,7 @@ A transaction-builder tool is being developed to help build transactions but, me
 }
 ```
 
-1. Sign the transaction by the parties (you need to move the JSON around and sign it yourself)
+2. Sign the transaction by the parties (you need to move the JSON around and sign it yourself)
 
 ```
 Signing means hashing and adding a signature at the end of the JSON.
