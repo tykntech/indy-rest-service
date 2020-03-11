@@ -53,7 +53,7 @@ The API expects a transaction object built following the [INDY specs](https://re
 
 A transaction-builder tool is being developed to help build transactions but, meanwhile, it needs to be done manually.
 
-1. Create a transaction (ATTRIB/NYM/SCHEMA_DEF/SCHEMA)
+1. Create a transaction (ATTRIB/NYM/SCHEMA/CRED*DEF/SCHEMA). \_The signatures are just examples*
 
 ```JSON
 // NYM transaction
@@ -168,7 +168,7 @@ A transaction-builder tool is being developed to help build transactions but, me
 }
 ```
 
-2. Sign the transaction by the parties (you need to move the JSON around and sign it yourself)
+1. Sign the transaction by the parties (you need to move the JSON around and sign it yourself)
 
 ```
 Signing means hashing and adding a signature at the end of the JSON.
