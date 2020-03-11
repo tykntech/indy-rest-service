@@ -53,10 +53,10 @@ The API expects a transaction object built following the [INDY specs](https://re
 
 A transaction-builder tool is being developed to help build transactions but, meanwhile, it needs to be done manually.
 
-1. Create a transaction (ATTRIB/NYM/SCHEMA/CRED*DEF/SCHEMA). \_The signatures are just examples*
+1. Create a transaction (ATTRIB/NYM/SCHEMA/CRED_DEF/SCHEMA).
 
 ```JSON
-// NYM transaction
+// NYM transaction --- Signatures are just an example
 {
   "operation": {
     "type": "1",
