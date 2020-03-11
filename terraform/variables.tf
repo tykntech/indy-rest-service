@@ -12,3 +12,7 @@ variable org_id {}
 variable subdomain {}
 
 variable environment {}
+
+variable service_name {
+  default = "rest"
+}
