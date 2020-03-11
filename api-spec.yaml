@@ -11,7 +11,7 @@ externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
 servers:
-  - url: 'https://api.tykn.tech/'
+  - url: 'https://rest.api.tykn.tech/'
 paths:
   /{network}/tx:
     post:
@@ -26,7 +26,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Transaction'            
+              $ref: '#/components/schemas/Transaction'
       responses:
         '200':
           description: OK
@@ -88,7 +88,7 @@ paths:
   /{network}/sizes:
     get:
       description: Get ledger sizes
-      parameters: 
+      parameters:
         - name: network
           in: path
           required: true
@@ -127,18 +127,18 @@ components:
               example: 4
             version:
               type: string
-              example: "1.0"
+              example: '1.0'
             text:
               type: string
-              example: "some big agreement text"
+              example: 'some big agreement text'
         identifier:
           type: string
-          example: "Th7MpTaRZVRYnPiabds81Y"
+          example: 'Th7MpTaRZVRYnPiabds81Y'
           description: Verkey of the transaction owner
         reqId:
           type: number
           example: 1575979116
-          description: Usually a EPOCH UNIX TIMESTAMP 
+          description: Usually a EPOCH UNIX TIMESTAMP
         protocolVersion:
           type: number
           example: 2
@@ -146,46 +146,46 @@ components:
           type: array
           items:
             type: string
-        
-    Transaction: 
+
+    Transaction:
       type: object
       properties:
         ledgerSize:
           type: number
           example: 254
-        txn: 
+        txn:
           type: object
           properties:
-            metadata: 
+            metadata:
               type: object
               properties:
                 from:
                   type: string
-                  example: "JX29L7h6UpDNEThiaTYx9N"
+                  example: 'JX29L7h6UpDNEThiaTYx9N'
             type:
               type: string
-              enum: 
-                - "0"
-                - "1"
-                - "2"
+              enum:
+                - '0'
+                - '1'
+                - '2'
             data:
               type: object
-        txnMetadata: 
+        txnMetadata:
           type: object
           properties:
             seqNo:
               type: number
               example: 15239
-        reqSignature: 
+        reqSignature:
           type: object
-        rootHash: 
+        rootHash:
           type: string
-          example: "239dJiY4pNymcMBLq4U7wHqt778ZwJ57hQNXEoZJNYok"
+          example: '239dJiY4pNymcMBLq4U7wHqt778ZwJ57hQNXEoZJNYok'
         ver:
           type: number
         auditPath:
           type: array
-          items: 
+          items:
             type: string
     LedgerSizesResponse:
       type: object
