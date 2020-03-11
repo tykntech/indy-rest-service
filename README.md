@@ -12,7 +12,7 @@ Currently it is already hard to onboard new developers to [Indy](https://www.hyp
 
 Pre-requirements:
 1. A node-js 10+ environment
-2. Internet access or Hyperledger INDY node locally
+2. Internet access or [an Hyperledger Indy node running locally](https://github.com/hyperledger/indy-sdk#how-to-start-local-nodes-pool-with-docker)
 
 First, clone this repository:
 ```
