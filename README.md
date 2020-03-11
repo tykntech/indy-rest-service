@@ -1,10 +1,10 @@
 ![Node.js CI](https://github.com/tykntech/indy-rest-service/workflows/Node.js%20CI/badge.svg?branch=master)
 
-# Tykn's rest service
+# Tykn's REST service
 
-This is Tykn’s alternative to communicate with Hyperledger Indy nodes. With this service it’s possible to send REST requests to the nodes without needing ZeroMQ a complex messaging system. 
+This is Tykn’s alternative to communicate with Hyperledger Indy nodes. With this service it’s possible to send REST requests to the nodes without needing [ZeroMQ](https://zeromq.org/) a complex messaging system. 
 
-Currently it is already hard to onboard new developers to Indy and Self-Sovereign Identity as both require a lot of knowledge around blockchain, cryptography and identity. Putting another communication paradigm in just makes it harder. So, as a first step, we decided to build a tool that could facilitate communication, creating this REST interface that any client can call to read and write to any Hyperledger Indy node.
+Currently it is already hard to onboard new developers to [Indy](https://www.hyperledger.org/projects/hyperledger-indy) and [Self-Sovereign Identity](https://sovrin.org/faq/what-is-self-sovereign-identity/) as both require a lot of knowledge around [blockchain](https://en.wikipedia.org/wiki/Blockchain), [asynchronous cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), [verifiable credentials](https://www.w3.org/TR/vc-data-model/) and [digital identity](https://en.wikipedia.org/wiki/Digital_identity). Putting another communication paradigm in just makes it harder. So, as a first step, we decided to build a tool that could facilitate communication, creating this REST interface that any client can call to read and write to any Hyperledger Indy node.
 
 
 ---
