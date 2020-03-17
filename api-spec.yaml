@@ -11,7 +11,7 @@ externalDocs:
   description: Find out more about Swagger
   url: 'http://swagger.io'
 servers:
-  - url: 'https://rest.api.tykn.tech/'
+  - url: 'http://rest.api.tykn.tech/'
 paths:
   /{network}/tx:
     post:
@@ -63,7 +63,8 @@ paths:
             example: 32
         - name: offset
           in: path
-          description: OPTIONAL!!! How many blocks from/before the starting-block should be retrieved
+          description:
+            OPTIONAL!!! How many blocks from/before the starting-block should be retrieved
           required: true
           schema:
             type: number
@@ -72,7 +73,8 @@ paths:
         - name: is-forward
           in: path
           description: >-
-            OPTIONAL!!! If true gets X tx from starting point. If false, gets X transactions until starting point.
+            OPTIONAL!!! If true gets X tx from starting point. If false, gets X transactions until
+            starting point.
           required: true
           schema:
             type: boolean
@@ -111,11 +113,9 @@ components:
         - sovbuilder
         - sovlocal
       description: >
-        Network to execute the call:
-        * `sovmain`: Main sovrin network
-        * `sovstaging`: Staging sovrin network
-        * `sovbuilder`: Builders sovrin network
-        * `sovlocal` : Local sovrin network (Only available on-prem)
+        Network to execute the call: * `sovmain`: Main sovrin network * `sovstaging`: Staging sovrin
+        network * `sovbuilder`: Builders sovrin network * `sovlocal` : Local sovrin network (Only
+        available on-prem)
     WriteTransaction:
       type: object
       properties:
