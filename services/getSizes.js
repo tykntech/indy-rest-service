@@ -31,7 +31,6 @@ module.exports = async function(parsedConfig, ledgers) {
     }
   }
 
-  console.debug('Querying ...');
   resp = await Promise.all(resp);
 
   const response = resp.map(tx => {
