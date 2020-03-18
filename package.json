@@ -3,6 +3,9 @@
   "version": "0.1.2-beta4",
   "main": "index.js",
   "license": "MIT",
+  "engines": {
+    "node": "^8.x.x"
+  },
   "repository": {
     "url": "https://github.com/tykntech/indy-rest-service"
   },
