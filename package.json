@@ -1,6 +1,6 @@
 {
   "name": "indy-wrapper",
-  "version": "0.1.2-beta1",
+  "version": "0.1.2-beta2",
   "main": "index.js",
   "license": "MIT",
   "repository": {
