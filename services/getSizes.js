@@ -33,11 +33,10 @@ module.exports = async function(parsedConfig, ledgers) {
 
   resp = await Promise.all(resp);
 
-  const response = resp.map(tx => {
-    return {
-      ledger: ledgers[tx.result.state_proof.multi_signature.value.ledger_id],
-      size: tx.result.data.ledgerSize,
-    };
+  const response = {};
+  resp.map(tx => {
+    response[ledgers[tx.result.state_proof.multi_signature.value.ledger_id]] =
+      tx.result.data.ledgerSize;
   });
 
   return response;
