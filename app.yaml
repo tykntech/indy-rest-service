@@ -1,6 +1,7 @@
-runtime: nodejs10
+runtime: nodejs
 env: flex
 
 service: default
 
 env_variables:
+  PORT: 80
