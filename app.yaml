@@ -1,5 +1,4 @@
 runtime: nodejs
-env: flex
 
 service: default
 
