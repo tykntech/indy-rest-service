@@ -1,11 +1,5 @@
 const zmqlib = require('@tykntech/indy-zmq-lib');
-
-const networks = {
-  sovbuilder: require('../networks/sovbuilder.json'),
-  sovstaging: require('../networks/sovstaging.json'),
-  sovmain: require('../networks/sovmain.json'),
-  sovlocal: require('../networks/sovlocal.json'),
-};
+const networks = require('../networks');
 
 exports.getNetwork = async function(req, res, next) {
   const { network } = req.params;
@@ -16,6 +10,7 @@ exports.getNetwork = async function(req, res, next) {
       .json({ message: `The network ${network} is not available in this API.` });
   }
 
+  req.network = network;
   req.parsedConfig = await Promise.all(
     networks[network].map(async net => await zmqlib.ParseGenesisTx(net))
   );
