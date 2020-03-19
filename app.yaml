@@ -1,6 +1,2 @@
 runtime: nodejs10
-
 service: default
-
-env_variables:
-  PORT: 80
