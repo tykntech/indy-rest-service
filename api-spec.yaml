@@ -12,6 +12,7 @@ externalDocs:
   url: 'http://swagger.io'
 servers:
   - url: 'http://rest.api.tykn.tech/'
+  - url: 'http://localhost:3000'
 paths:
   /{network}/tx:
     post:
