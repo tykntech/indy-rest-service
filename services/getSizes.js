@@ -4,13 +4,15 @@ const defaultLedgers = require('../lib/ledgers');
 
 module.exports = async function (parsedConfig, ledgers) {
   let resp = [];
+  const response = {};
+  const connections = [];
+
   ledgers = ledgers || defaultLedgers;
 
   if (!Array.isArray(ledgers)) {
     ledgers = [ledgers];
   }
 
-  const connections = [];
   try {
     for (let it = 0; it < ledgers.length; it++) {
       try {
@@ -36,7 +38,6 @@ module.exports = async function (parsedConfig, ledgers) {
 
     resp = await Promise.all(resp);
 
-    const response = {};
     resp.map((tx) => {
       response[ledgers[tx.result.state_proof.multi_signature.value.ledger_id]] =
         tx.result.data.ledgerSize;
