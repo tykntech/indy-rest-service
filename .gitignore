@@ -4,3 +4,6 @@ node_modules
 *.tfout
 *.tfstate.backup
 client-secret.json
+devkey
+testkey
+prodkey
