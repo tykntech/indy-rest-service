@@ -14,5 +14,5 @@ variable subdomain {}
 variable environment {}
 
 variable service_name {
-  default = "rest"
+  default = "rest-api"
 }
