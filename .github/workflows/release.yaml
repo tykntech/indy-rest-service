@@ -19,7 +19,9 @@ jobs:
           service_account_key: ${{ secrets.PROD_GCP_SA_KEY }}
           project_id: ${{ secrets.PROD_PROJECT_ID }}
       - name: Activating GCloud account
-        run: gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }} --key-file=client-secret.json
+        run:
+          gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }}
+          --key-file=client-secret.json
 
       - name: 'Terraform Init'
         uses: hashicorp/terraform-github-actions@master
@@ -41,6 +43,9 @@ jobs:
           args: '-var-file=envs/prod/prod.tfvars -out=plan.tfout'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: '../client-secret.json'
+          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
+
       - name: 'Terraform Apply'
         uses: hashicorp/terraform-github-actions@master
         with:
@@ -51,6 +56,8 @@ jobs:
           args: '"plan.tfout"'
         env:
           GOOGLE_APPLICATION_CREDENTIALS: '../client-secret.json'
+          CLOUDFLARE_EMAIL: ${{ secrets.CLOUDFLARE_EMAIL }}
+          CLOUDFLARE_API_KEY: ${{ secrets.CLOUDFLARE_API_KEY }}
 
   deploy:
     runs-on: ubuntu-latest
@@ -69,7 +76,9 @@ jobs:
           service_account_key: ${{ secrets.PROD_GCP_SA_KEY }}
           project_id: ${{ secrets.PROD_PROJECT_ID }}
       - name: Creating client-secrets.json
-        run: gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }} --key-file=client-secret.json
+        run:
+          gcloud auth activate-service-account ${{ secrets.PROD_GCP_SA_EMAIL }}
+          --key-file=client-secret.json
       - name: Publish app to Google App Engine
         run: |
           # This client-secret.json is converted by PROD_GCP_SA_KEY.        
