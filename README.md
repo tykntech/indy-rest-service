@@ -2,9 +2,21 @@
 
 # Tykn's REST service
 
-This is Tykn’s alternative to communicate with Hyperledger Indy nodes. With this service it’s possible to send REST requests to the nodes without needing [ZeroMQ](https://zeromq.org/) a complex messaging system.
+This is Tykn’s alternative to communicate with Hyperledger Indy nodes. With this service it’s
+possible to send REST requests to the nodes without needing [ZeroMQ](https://zeromq.org/) a complex
+messaging system.
 
-Currently it is already hard to onboard new developers to [Indy](https://www.hyperledger.org/projects/hyperledger-indy) and [Self-Sovereign Identity](https://sovrin.org/faq/what-is-self-sovereign-identity/) as both require a lot of knowledge around [blockchain](https://en.wikipedia.org/wiki/Blockchain), [asynchronous cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography), [verifiable credentials](https://www.w3.org/TR/vc-data-model/), [decentralised identifiers (DIDs)](https://w3c-ccg.github.io/did-primer/) and [digital identity](https://en.wikipedia.org/wiki/Digital_identity). Putting another communication paradigm in just makes it harder. So, we decided to build a tool that could facilitate communication, creating this REST interface that any client can call to read and write to any Hyperledger Indy node.
+Currently it is already hard to onboard new developers to
+[Indy](https://www.hyperledger.org/projects/hyperledger-indy) and
+[Self-Sovereign Identity](https://sovrin.org/faq/what-is-self-sovereign-identity/) as both require a
+lot of knowledge around [blockchain](https://en.wikipedia.org/wiki/Blockchain),
+[asynchronous cryptography](https://en.wikipedia.org/wiki/Public-key_cryptography),
+[verifiable credentials](https://www.w3.org/TR/vc-data-model/),
+[decentralised identifiers (DIDs)](https://w3c-ccg.github.io/did-primer/) and
+[digital identity](https://en.wikipedia.org/wiki/Digital_identity). Putting another communication
+paradigm in just makes it harder. So, we decided to build a tool that could facilitate
+communication, creating this REST interface that any client can call to read and write to any
+Hyperledger Indy node.
 
 ---
 
@@ -13,7 +25,8 @@ Currently it is already hard to onboard new developers to [Indy](https://www.hyp
 Pre-requirements:
 
 1. A node-js 10+ environment
-2. Internet access or [an Hyperledger Indy node running locally](https://github.com/hyperledger/indy-sdk#how-to-start-local-nodes-pool-with-docker)
+2. Internet access or
+   [an Hyperledger Indy node running locally](https://github.com/hyperledger/indy-sdk#how-to-start-local-nodes-pool-with-docker)
 
 First, clone this repository:
 
@@ -43,15 +56,18 @@ npm start // npm mon for nodemon
 
 ## Open API Spec 3.0
 
-Try our OpenAPI 3.0 spec at: http://rest.api.tykn.tech/doc
+Try our OpenAPI 3.0 spec at: http://rest-api.tykn.tech/doc
 
 ---
 
 ## How it works?
 
-The API expects a transaction object built following the [INDY specs](https://readthedocs.org/projects/indy-node/downloads/pdf/latest/). Usually, the INDY-SDK builds those transactions.
+The API expects a transaction object built following the
+[INDY specs](https://readthedocs.org/projects/indy-node/downloads/pdf/latest/). Usually, the
+INDY-SDK builds those transactions.
 
-A transaction-builder tool is being developed to help build transactions but, meanwhile, it needs to be done manually.
+A transaction-builder tool is being developed to help build transactions but, meanwhile, it needs to
+be done manually.
 
 1. Create a transaction (ATTRIB/NYM/SCHEMA/CRED_DEF/SCHEMA).
 
