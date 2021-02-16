@@ -56,7 +56,7 @@ npm start // npm mon for nodemon
 
 ## Open API Spec 3.0
 
-Try our OpenAPI 3.0 spec at: http://rest.api.tykn.tech/doc
+Try our OpenAPI 3.0 spec at: http://rest-api.tykn.tech/doc
 
 ---
 
